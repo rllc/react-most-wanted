@@ -6,31 +6,21 @@ import grants from './grants'
 
 const config = {
   firebase_config: {
-    apiKey: 'AIzaSyBQAmNJ2DbRyw8PqdmNWlePYtMP0hUcjpY',
-    authDomain: 'react-most-wanted-3b1b2.firebaseapp.com',
-    databaseURL: 'https://react-most-wanted-3b1b2.firebaseio.com',
-    projectId: 'react-most-wanted-3b1b2',
-    storageBucket: 'react-most-wanted-3b1b2.appspot.com',
-    messagingSenderId: '258373383650'
+    apiKey: "AIzaSyD-uM9lWp5_MTYBauHlsbzJUhUkNE53zh4",
+    authDomain: "llc-archives.firebaseapp.com",
+    databaseURL: "https://llc-archives.firebaseio.com",
+    projectId: "llc-archives",
+    storageBucket: "llc-archives.appspot.com",
+    messagingSenderId: "679824638884"
   },
   firebase_config_dev: {
-    apiKey: 'AIzaSyBQAmNJ2DbRyw8PqdmNWlePYtMP0hUcjpY',
-    authDomain: 'react-most-wanted-3b1b2.firebaseapp.com',
-    databaseURL: 'https://react-most-wanted-3b1b2.firebaseio.com',
-    projectId: 'react-most-wanted-3b1b2',
-    storageBucket: 'react-most-wanted-3b1b2.appspot.com',
-    messagingSenderId: '258373383650'
+    apiKey: "AIzaSyC7TDEG6KFrrl4BsmMVYVr-I6FM2Fzkmu0",
+    authDomain: "archives-dev.firebaseapp.com",
+    databaseURL: "https://archives-dev.firebaseio.com",
+    projectId: "archives-dev",
+    storageBucket: "archives-dev.appspot.com",
+    messagingSenderId: "111370350224"
   },
-  /*
-  firebase_config_dev: {
-    apiKey: 'AIzaSyB31cMH9nJnERC1WCWA7lQHnY08voLs-Z0',
-    authDomain: 'react-most-wanted-dev.firebaseapp.com',
-    databaseURL: 'https://react-most-wanted-dev.firebaseio.com',
-    projectId: 'react-most-wanted-dev',
-    storageBucket: 'react-most-wanted-dev.appspot.com',
-    messagingSenderId: '70650394824'
-  },
-  */
   firebase_providers: [
     'google.com',
     'facebook.com',

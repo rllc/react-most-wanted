@@ -3,7 +3,7 @@
     "admins": {
       ".read": "auth != null",
       "$uid": {
-        ".write": "auth != null || root.child('admins/'+auth.uid).exists()"
+        ".write": "auth != null && root.child('admins/'+auth.uid).exists()"
       }
     },
     "predefined_chat_messages": {
@@ -113,6 +113,12 @@
     "user_registrations_per_month": {
       ".read": true,
       ".write": false
+    },
+    "sermons":{
+      ".read": "auth != null",
+      "$uid":{
+        ".write": "(auth != null && root.child('admins/'+auth.uid).exists()) || (data.exists() && newData.exists() && root.child('user_grants/'+auth.uid+'/edit_company').exists()) || (!data.exists() && newData.exists() && root.child('user_grants/'+auth.uid+'/create_company').exists()) || (data.exists() && !newData.exists() && root.child('user_grants/'+auth.uid+'/edit_sermon').exists())"
+      }
     }
   }
 }
