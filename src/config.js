@@ -6,12 +6,12 @@ import grants from './grants'
 
 const config = {
   firebase_config: {
-    apiKey: "AIzaSyD-uM9lWp5_MTYBauHlsbzJUhUkNE53zh4",
-    authDomain: "llc-archives.firebaseapp.com",
-    databaseURL: "https://llc-archives.firebaseio.com",
-    projectId: "llc-archives",
-    storageBucket: "llc-archives.appspot.com",
-    messagingSenderId: "679824638884"
+    apiKey: "AIzaSyBWlHtm8o__opkdIQ-kRiFGPD7ESzR8LhQ",
+    authDomain: "archives-eee3a.firebaseapp.com",
+    databaseURL: "https://archives-eee3a.firebaseio.com",
+    projectId: "archives-eee3a",
+    storageBucket: "archives-eee3a.appspot.com",
+    messagingSenderId: "367292284136"
   },
   firebase_config_dev: {
     apiKey: "AIzaSyC7TDEG6KFrrl4BsmMVYVr-I6FM2Fzkmu0",
