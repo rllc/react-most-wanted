@@ -2,6 +2,6 @@
   "projects": {
     "default": "archives-dev",
     "dev": "archives-dev",
-    "prod": "archives-3b1b2"
+    "prod": "archives-eee3a"
   }
 }
