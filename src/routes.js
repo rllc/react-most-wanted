@@ -14,6 +14,9 @@ const AsyncTasks = MyLoadable({ loader: () => import('./containers/Tasks/Tasks')
 const AsyncCompany = MyLoadable({ loader: () => import('./containers/Companies/Company') });
 const AsyncCompanies = MyLoadable({ loader: () => import('./containers/Companies/Companies') }, [AsyncCompany]);
 const AsyncInfiniteList = MyLoadable({ loader: () => import('./containers/InfiniteList/InfiniteList') });
+const AsyncPlayer = MyLoadable({ loader: () => import('./containers/Sermons/SermonPlayer') });
+const AsyncSermon = MyLoadable({ loader: () => import('./containers/Sermons/Sermon') });
+const AsyncSermons = MyLoadable({ loader: () => import('./containers/Sermons/Sermons') }, [AsyncSermon]);
 
 const Routes = [
     <RestrictedRoute type='private' path="/" exact component={AsyncDashboard} />,
@@ -24,6 +27,9 @@ const Routes = [
     <RestrictedRoute type='private' path="/companies" exact component={AsyncCompanies} />,
     <RestrictedRoute type='private' path="/companies/edit/:uid" exact component={AsyncCompany} />,
     <RestrictedRoute type='private' path="/companies/create" exact component={AsyncCompany} />,
+    <RestrictedRoute type='private' path="/sermons" exact component={AsyncSermons} />,
+    <RestrictedRoute type='private' path="/sermons/edit/:uid" exact component={AsyncSermon} />,
+    <RestrictedRoute type='private' path="/sermons/play/:uid" exact component={AsyncPlayer} />,
     <RestrictedRoute type='private' path="/about" exact component={AsyncAbout} />,
     <RestrictedRoute type='private' path="/document" exact component={AsyncDocument} />,
     <RestrictedRoute type='private' path="/collection" exact component={AsyncCollection} />,

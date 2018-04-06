@@ -56,6 +56,12 @@ const getMenuItems = (props) => {
       leftIcon: <FontIcon className='material-icons' >dashboard</FontIcon>
     },
     {
+      value: '/sermons',
+      visible: isAuthorised,
+      primaryText: intl.formatMessage({ id: 'sermons' }),
+      leftIcon: <FontIcon className='material-icons' >play_arrow</FontIcon>
+    },
+    {
       visible: isAuthorised,
       primaryText: intl.formatMessage({ id: 'chats' }),
       primaryTogglesNestedList: true,
