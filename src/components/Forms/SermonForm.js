@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { injectIntl } from 'react-intl'
 import { Field, reduxForm } from 'redux-form'
-import { TextField } from 'redux-form-material-ui'
+import { TextField, Toggle } from 'redux-form-material-ui'
 import RaisedButton from 'material-ui/RaisedButton'
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import PropTypes from 'prop-types';
@@ -84,9 +84,8 @@ class SermonForm extends Component {
           <Field
             name='published'
             disabled={!initialized}
-            component={TextField}
-            hintText={intl.formatMessage({ id: 'published_hint' })}
-            floatingLabelText={intl.formatMessage({ id: 'published_label' })}
+            component={Toggle}
+            label={intl.formatMessage({ id: 'published_label' })}
             ref='published'
             withRef
           />

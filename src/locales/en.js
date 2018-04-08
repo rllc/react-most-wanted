@@ -145,6 +145,20 @@ const messages = defineMessages({
   document: 'Document',
   collection: 'Collection',
   infinitelist: 'Infinitelist',
+  // sermon form
+  bible_text_label : 'Bible Text',
+  bible_text_hint : 'Genesis 2:2-10',
+  minister_label: 'Minister',
+  minister_hint: 'Joukko Haapsari',
+  title_label : 'Title',
+  title_hint : 'Third Advent Sunday',
+  created_label : 'Created',
+  created_hint : '11/02/2016 10:30',
+  congregation_label: 'Congregation',
+  congregation_hint : 'rockford',
+  published_label : 'Published',
+  url_label : 'URL',
+  url_hint : 'https://s3.amazonaws.com/alaska-archives/2018/201803011_EMattila.mp3'
 
 });
 
