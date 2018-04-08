@@ -62,82 +62,20 @@ const getMenuItems = (props) => {
       leftIcon: <FontIcon className='material-icons' >play_arrow</FontIcon>
     },
     {
-      visible: isAuthorised,
-      primaryText: intl.formatMessage({ id: 'chats' }),
-      primaryTogglesNestedList: true,
-      leftIcon: <FontIcon className='material-icons' >chats</FontIcon>,
-      nestedItems: [
-        {
-          value: '/chats',
-          visible: isAuthorised,
-          primaryText: intl.formatMessage({ id: 'private' }),
-          leftIcon: <FontIcon className='material-icons' >person</FontIcon>
-        },
-        {
-          value: '/public_chats',
-          visible: isAuthorised,
-          primaryText: intl.formatMessage({ id: 'public' }),
-          leftIcon: <FontIcon className='material-icons' >group</FontIcon>
-        },
-        {
-          value: '/predefined_chat_messages',
-          visible: isAuthorised,
-          primaryText: intl.formatMessage({ id: 'predefined_messages' }),
-          leftIcon: <FontIcon className='material-icons' >textsms</FontIcon>
-        }
-      ]
-    },
-    {
-      value: '/companies',
-      visible: isGranted('read_companies'),
-      primaryText: intl.formatMessage({ id: 'companies' }),
-      leftIcon: <FontIcon className='material-icons' >business</FontIcon>
-    },
-    {
-      value: '/tasks',
-      visible: isAuthorised,
-      primaryText: intl.formatMessage({ id: 'tasks' }),
-      leftIcon: <FontIcon className='material-icons' >list</FontIcon>
-    },
-    {
       value: '/infinitelist',
       visible: isAuthorised,
       primaryText: intl.formatMessage({ id: 'infinitelist' }),
       leftIcon: <FontIcon className='material-icons' >view_list</FontIcon>
     },
     {
-      visible: isAuthorised,
-      primaryTogglesNestedList: true,
-      primaryText: intl.formatMessage({ id: 'firestore' }),
-      leftIcon: <FontIcon className='material-icons' >flash_on</FontIcon>,
-      nestedItems: [
-        {
-          value: '/document',
-          primaryText: intl.formatMessage({ id: 'document' }),
-          leftIcon: <FontIcon className='material-icons' >flash_on</FontIcon>
-        },
-        {
-          value: '/collection',
-          primaryText: intl.formatMessage({ id: 'collection' }),
-          leftIcon: <FontIcon className='material-icons' >flash_on</FontIcon>
-        }
-      ]
-    },
-    {
-      value: '/about',
-      visible: isAuthorised,
-      primaryText: intl.formatMessage({ id: 'about' }),
-      leftIcon: <FontIcon className='material-icons' >info_outline</FontIcon>
-    },
-    {
-      visible: isAuthorised, // In prod: isGranted('administration'),
+      visible: isGranted('administration'),
       primaryTogglesNestedList: true,
       primaryText: intl.formatMessage({ id: 'administration' }),
       leftIcon: <FontIcon className='material-icons' >security</FontIcon>,
       nestedItems: [
         {
           value: '/users',
-          visible: isAuthorised, // In prod: isGranted('read_users'),
+          visible: isGranted('read_users'),
           primaryText: intl.formatMessage({ id: 'users' }),
           leftIcon: <FontIcon className='material-icons' >group</FontIcon>
         },
