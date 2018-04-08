@@ -56,6 +56,54 @@ class SermonForm extends Component {
           />
         </div>
 
+        <div>
+          <Field
+            name='created'
+            disabled={!initialized}
+            component={TextField}
+            hintText={intl.formatMessage({ id: 'created_hint' })}
+            floatingLabelText={intl.formatMessage({ id: 'created_label' })}
+            ref='created'
+            withRef
+          />
+        </div>
+
+         <div>
+          <Field
+            name='congregation'
+            disabled={!initialized}
+            component={TextField}
+            hintText={intl.formatMessage({ id: 'congregation_hint' })}
+            floatingLabelText={intl.formatMessage({ id: 'congregation_label' })}
+            ref='congregation'
+            withRef
+          />
+        </div>
+
+        <div>
+          <Field
+            name='published'
+            disabled={!initialized}
+            component={TextField}
+            hintText={intl.formatMessage({ id: 'published_hint' })}
+            floatingLabelText={intl.formatMessage({ id: 'published_label' })}
+            ref='published'
+            withRef
+          />
+        </div>
+
+        <div>
+          <Field
+            name='url'
+            disabled={!initialized}
+            component={TextField}
+            hintText={intl.formatMessage({ id: 'url_hint' })}
+            floatingLabelText={intl.formatMessage({ id: 'url_label' })}
+            ref='url'
+            withRef
+          />
+        </div>
+
         <br />
 
         <div>
