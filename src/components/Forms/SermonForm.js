@@ -49,8 +49,8 @@ class SermonForm extends Component {
             name='title'
             disabled={!initialized}
             component={TextField}
-            hintText={intl.formatMessage({ id: 'title_hint' })}
-            floatingLabelText={intl.formatMessage({ id: 'title_label' })}
+            hintText={intl.formatMessage({ id: 'sermon_title_hint' })}
+            floatingLabelText={intl.formatMessage({ id: 'sermon_title_label' })}
             ref='title'
             withRef
           />
