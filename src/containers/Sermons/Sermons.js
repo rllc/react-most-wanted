@@ -96,22 +96,19 @@ class Sermons extends Component {
 
         <ListItem
           key={key}
-          onClick={isGranted('create_company')?()=>{history.push(`/sermons/play/${key}`)}:undefined}
+          onClick={()=>{history.push(`/sermons/play/${key}`)}}
           primaryText={sermon.title}
           secondaryText={`${sermon.minister} ${sermon.created?intl.formatRelative(new Date(sermon.created)):undefined}`}
           leftAvatar={this.userAvatar(key, sermon)}
           rightIconButton={
-            isGranted('create_company') ?
+            isGranted('edit_sermon') ?
             <IconButton
-              style={{display:browser.lessThan.medium?'none':undefined}}
               onClick={()=>{history.push(`/sermons/edit/${key}`);}}>
               <FontIcon className="material-icons">{'edit'}</FontIcon>
             </IconButton>:undefined
           }
           id={key}
         />
-
-
         <Divider inset={true}/>
       </div>
     });
@@ -175,19 +172,7 @@ class Sermons extends Component {
 
         {sermons &&
           <BottomNavigation style={{width: '100%', position: 'absolute', bottom: 0, right: 0, left: 0, zIndex: 50}}>
-            <div style={{display:'flex', alignItems: 'center', justifyContent: 'center', padding: 15 }}>
-              <TextField
-                id="public_sermon"
-                fullWidth={true}
-                onKeyDown={(event)=>{this.handleKeyDown(event, this.handleAddSermon)}}
-                ref={(field) => { this.name = field; this.name && this.name.focus(); }}
-                type="Text"
-              />
-              <IconButton
-                onClick={this.handleAddSermon}>
-                <FontIcon className="material-icons" color={muiTheme.palette.primary1Color}>send</FontIcon>
-              </IconButton>
-            </div>
+            
           </BottomNavigation>
         }
 
