@@ -10,7 +10,6 @@ import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-import TextField from 'material-ui/TextField';
 import Avatar from 'material-ui/Avatar';
 import { green800} from 'material-ui/styles/colors';
 import {BottomNavigation} from 'material-ui/BottomNavigation';
@@ -81,7 +80,7 @@ class Sermons extends Component {
   }
 
   renderList(sermons) {
-    const { intl, history, browser, isGranted} =this.props;
+    const { intl, history, isGranted} =this.props;
 
     if(sermons===undefined){
       return <div></div>
