@@ -1,17 +1,21 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
-try { admin.initializeApp(functions.config().firebase) } catch (e) { } // You do that because the admin SDK can only be initialized once.
+try { admin.initializeApp() } catch (e) { }
 const nodemailer = require('nodemailer')
 const gmailEmail = encodeURIComponent(functions.config().gmail.email)
 const gmailPassword = encodeURIComponent(functions.config().gmail.password)
 const mailTransport = nodemailer.createTransport(`smtps://${gmailEmail}:${gmailPassword}@smtp.gmail.com`)
 
-exports = module.exports = functions.auth.user().onDelete(event => {
-  const user = event.data
-  const uid = user.uid
-  const email = user.email
-  const displayName = user.displayName
-  const provider = user.providerData ? user.providerData[0] : {}
+exports = module.exports = functions.auth.user().onDelete((userMetadata, context) => {
+  const uid = userMetadata.uid
+  const email = userMetadata.email
+  const displayName = userMetadata.displayName
+
+  console.log(userMetadata.providerData)
+  console.log(userMetadata)
+  console.log(context)
+
+  const provider = userMetadata.providerData.length ? userMetadata.providerData[0] : { providerId: email ? 'password' : 'phone' }
   const providerId = provider.providerId ? provider.providerId.replace('.com', '') : provider.providerId
 
   let promises = []
@@ -28,6 +32,8 @@ exports = module.exports = functions.auth.user().onDelete(event => {
   })
 
   const deleteUser = admin.database().ref(`/users/${uid}`).remove()
+  const deleteTokens = admin.database().ref(`/notification_tokens/${uid}`).remove()
+  const deleteChats = admin.database().ref(`/users_chats/${uid}`).remove()
 
   const usersCount = admin.database()
     .ref(`/users_count`)
@@ -41,7 +47,7 @@ exports = module.exports = functions.auth.user().onDelete(event => {
     )
   }
 
-  promises.push(sendEmail, deleteUser, usersCount)
+  promises.push(sendEmail, deleteUser, usersCount, deleteTokens, deleteChats)
 
   return Promise.all(promises)
 })

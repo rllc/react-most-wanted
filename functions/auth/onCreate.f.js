@@ -1,57 +1,65 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
-try { admin.initializeApp(functions.config().firebase) } catch (e) { } // You do that because the admin SDK can only be initialized once.
+try { admin.initializeApp() } catch (e) { }
 const nodemailer = require('nodemailer')
 const gmailEmail = encodeURIComponent(functions.config().gmail.email)
 const gmailPassword = encodeURIComponent(functions.config().gmail.password)
 const mailTransport = nodemailer.createTransport(`smtps://${gmailEmail}:${gmailPassword}@smtp.gmail.com`)
 const moment = require('moment')
 
-exports = module.exports = functions.auth.user().onCreate(event => {
-  const user = event.data // The Firebase user.
-  const email = user.email // The email of the user.
-  const displayName = user.displayName // The display name of the user.
-  const creationTime = moment(event.data.metadata.creationTime)
+exports = module.exports = functions.auth.user().onCreate((userRecord, context) => {
+  const email = userRecord.email // The email of the user.
+  const displayName = userRecord.displayName // The display name of the user.
+  const creationTime = moment(userRecord.creationTime)
   const year = creationTime.format('YYYY')
   const month = creationTime.format('MM')
   const day = creationTime.format('DD')
-  const provider = user.providerData ? user.providerData[0] : {}
-  const providerId = provider.providerId ? provider.providerId.replace('.com', '') : provider.providerId
 
-  let promises = []
+  return admin.auth().getUser(userRecord.uid).then(user => {
+    // User  without provider data
+    console.log('Event user data', userRecord)
 
-  if (providerId) {
-    promises.push(
-      admin.database()
-        .ref(`/provider_count/${providerId}`)
-        .transaction(current => (current || 0) + 1)
-    )
-  }
+    // User with provider data
+    console.log('Auth user data', user)
 
-  const dayCount = admin.database()
-    .ref(`/user_registrations_per_day/${year}/${month}/${day}`)
-    .transaction(current => (current || 0) + 1)
+    const provider = user.providerData !== [] ? user.providerData[0] : { providerId: email ? 'password' : 'phone' }
+    const providerId = provider.providerId ? provider.providerId.replace('.com', '') : provider.providerId
 
-  const monthCount = admin.database()
-    .ref(`/user_registrations_per_month/${year}/${month}`)
-    .transaction(current => (current || 0) + 1)
+    let promises = []
 
-  const usersCount = admin.database()
-    .ref(`/users_count`)
-    .transaction(current => (current || 0) + 1)
-
-  promises.push(dayCount, monthCount, usersCount)
-
-  if (email) {
-    const mailOptions = {
-      from: `"Tarik Huber" <${gmailEmail}>`,
-      to: email,
-      subject: `Welcome to React Most Wanted!`,
-      text: `Hey ${displayName || ''}!, Welcome to React Most Wanted. I hope you will enjoy the demo application.`
+    if (providerId) {
+      promises.push(
+        admin.database()
+          .ref(`/provider_count/${providerId}`)
+          .transaction(current => (current || 0) + 1)
+      )
     }
 
-    promises.push(mailTransport.sendMail(mailOptions))
-  }
+    const dayCount = admin.database()
+      .ref(`/user_registrations_per_day/${year}/${month}/${day}`)
+      .transaction(current => (current || 0) + 1)
 
-  return Promise.all(promises)
+    const monthCount = admin.database()
+      .ref(`/user_registrations_per_month/${year}/${month}`)
+      .transaction(current => (current || 0) + 1)
+
+    const usersCount = admin.database()
+      .ref(`/users_count`)
+      .transaction(current => (current || 0) + 1)
+
+    promises.push(dayCount, monthCount, usersCount)
+
+    if (email) {
+      const mailOptions = {
+        from: `"Tarik Huber" <${gmailEmail}>`,
+        to: email,
+        subject: `Welcome to React Most Wanted!`,
+        text: `Hey ${displayName || ''}!, Welcome to React Most Wanted. I hope you will enjoy the demo application.`
+      }
+
+      promises.push(mailTransport.sendMail(mailOptions))
+    }
+
+    return Promise.all(promises)
+  })
 })
