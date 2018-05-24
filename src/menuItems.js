@@ -14,7 +14,6 @@ const getMenuItems = (props) => {
     updateLocale,
     intl,
     muiTheme,
-    auth,
     isGranted
   } = props
 
@@ -48,22 +47,10 @@ const getMenuItems = (props) => {
 
   return [
     {
-      value: '/dashboard',
-      visible: true,
-      primaryText: intl.formatMessage({ id: 'dashboard' }),
-      leftIcon: <FontIcon className='material-icons' >dashboard</FontIcon>
-    },
-    {
       value: '/sermons',
       visible: true,
       primaryText: intl.formatMessage({ id: 'sermons' }),
       leftIcon: <FontIcon className='material-icons' >play_arrow</FontIcon>
-    },
-    {
-      value: '/infinitelist',
-      visible: true,
-      primaryText: intl.formatMessage({ id: 'infinitelist' }),
-      leftIcon: <FontIcon className='material-icons' >view_list</FontIcon>
     },
     {
       visible: isGranted('administration'),
