@@ -18,8 +18,6 @@ const getMenuItems = (props) => {
     isGranted
   } = props
 
-  const isAuthorised = auth.isAuthorised
-
   const themeItems = allThemes.map((t) => {
     return {
       value: undefined,
@@ -51,19 +49,19 @@ const getMenuItems = (props) => {
   return [
     {
       value: '/dashboard',
-      visible: isAuthorised,
+      visible: true,
       primaryText: intl.formatMessage({ id: 'dashboard' }),
       leftIcon: <FontIcon className='material-icons' >dashboard</FontIcon>
     },
     {
       value: '/sermons',
-      visible: isAuthorised,
+      visible: true,
       primaryText: intl.formatMessage({ id: 'sermons' }),
       leftIcon: <FontIcon className='material-icons' >play_arrow</FontIcon>
     },
     {
       value: '/infinitelist',
-      visible: isAuthorised,
+      visible: true,
       primaryText: intl.formatMessage({ id: 'infinitelist' }),
       leftIcon: <FontIcon className='material-icons' >view_list</FontIcon>
     },
@@ -89,7 +87,7 @@ const getMenuItems = (props) => {
     },
     {
       divider: true,
-      visible: isAuthorised
+      visible: true
     },
     {
       primaryText: intl.formatMessage({ id: 'settings' }),
