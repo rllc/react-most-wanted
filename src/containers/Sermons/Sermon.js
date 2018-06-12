@@ -4,12 +4,17 @@ import { injectIntl } from 'react-intl';
 import { Activity } from 'rmw-shell'
 import SermonForm from '../../components/Forms/SermonForm';
 import { withRouter } from 'react-router-dom';
-import firebase from 'firebase';
-import FontIcon from 'material-ui/FontIcon';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
+import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
 import { withFirebase } from 'firekit-provider'
 import FireForm from 'fireform'
+import IconButton from '@material-ui/core/IconButton';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import { submit } from 'redux-form';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const path = '/sermons/';
 
@@ -25,7 +30,7 @@ class Sermon extends Component {
     const { auth } = this.props;
 
     return {
-      created: firebase.database.ServerValue.TIMESTAMP,
+      created: new Date(),
       userName: auth.displayName,
       userPhotoURL: auth.photoURL,
       userId: auth.uid,
@@ -63,19 +68,6 @@ class Sermon extends Component {
   render() {
 
     const { history, intl, dialogs, match, firebaseApp } = this.props;
-
-    const actions = [
-      <FlatButton
-        label={intl.formatMessage({ id: 'cancel' })}
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label={intl.formatMessage({ id: 'delete' })}
-        secondary={true}
-        onClick={this.handleDelete}
-      />,
-    ];
 
     return (
       <Activity

@@ -1,20 +1,31 @@
 import React from 'react'
-import FontIcon from 'material-ui/FontIcon'
-import Toggle from 'material-ui/Toggle'
+import Icon from '@material-ui/core/Icon'
 import allLocales from './locales'
 import allThemes from './themes'
+import LanguageIcon from '@material-ui/icons/Language'
+import StyleIcon from '@material-ui/icons/Style'
+import Brightness2 from '@material-ui/icons/Brightness2'
+import Brightness7 from '@material-ui/icons/Brightness7'
+import SettingsIcon from '@material-ui/icons/Settings'
+import VerticalAlignBottomIcon from '@material-ui/icons/VerticalAlignBottom'
+import AccountBoxIcon from '@material-ui/icons/AccountBox'
+import LockIcon from '@material-ui/icons/Lock'
 
 const getMenuItems = (props) => {
   const {
-    responsiveDrawer,
-    setResponsive,
-    theme,
     locale,
     updateTheme,
+    switchNightMode,
     updateLocale,
     intl,
-    muiTheme,
-    isGranted
+    themeSource,
+    auth,
+    isGranted,
+    deferredPrompt,
+    isAppInstallable,
+    isAppInstalled,
+    isAuthMenu,
+    handleSignOut
   } = props
 
   const themeItems = allThemes.map((t) => {
@@ -23,11 +34,7 @@ const getMenuItems = (props) => {
       visible: true,
       primaryText: intl.formatMessage({ id: t.id }),
       onClick: () => { updateTheme(t.id) },
-      rightIcon: <FontIcon
-        className='material-icons'
-        color={t.id === theme ? muiTheme.palette.primary1Color : undefined}>
-        style
-      </FontIcon>
+      leftIcon: <StyleIcon style={{ color: t.color }} />
     }
   })
 
@@ -37,13 +44,25 @@ const getMenuItems = (props) => {
       visible: true,
       primaryText: intl.formatMessage({ id: l.locale }),
       onClick: () => { updateLocale(l.locale) },
-      rightIcon: <FontIcon
-        className='material-icons'
-        color={l.locale === locale ? muiTheme.palette.primary1Color : undefined}>
-        language
-      </FontIcon>
+      leftIcon: <LanguageIcon />
     }
   })
+
+  if (isAuthMenu) {
+    return [
+      {
+        value: '/my_account',
+        primaryText: intl.formatMessage({ id: 'my_account' }),
+        leftIcon: <AccountBoxIcon />
+      },
+      {
+        value: '/signin',
+        onClick: handleSignOut,
+        primaryText: intl.formatMessage({ id: 'sign_out' }),
+        leftIcon: <LockIcon />
+      }
+    ]
+  }
 
   return [
     {
@@ -56,19 +75,19 @@ const getMenuItems = (props) => {
       visible: isGranted('administration'),
       primaryTogglesNestedList: true,
       primaryText: intl.formatMessage({ id: 'administration' }),
-      leftIcon: <FontIcon className='material-icons' >security</FontIcon>,
+      leftIcon: <Icon className='material-icons' >security</Icon>,
       nestedItems: [
         {
           value: '/users',
           visible: isGranted('read_users'),
           primaryText: intl.formatMessage({ id: 'users' }),
-          leftIcon: <FontIcon className='material-icons' >group</FontIcon>
+          leftIcon: <Icon className='material-icons' >group</Icon>
         },
         {
           value: '/roles',
           visible: isGranted('read_roles'),
           primaryText: intl.formatMessage({ id: 'roles' }),
-          leftIcon: <FontIcon className='material-icons' >account_box</FontIcon>
+          leftIcon: <Icon className='material-icons' >account_box</Icon>
         }
       ]
     },
@@ -79,33 +98,34 @@ const getMenuItems = (props) => {
     {
       primaryText: intl.formatMessage({ id: 'settings' }),
       primaryTogglesNestedList: true,
-      leftIcon: <FontIcon className='material-icons' >settings</FontIcon>,
+      leftIcon: <SettingsIcon />,
       nestedItems: [
         {
           primaryText: intl.formatMessage({ id: 'theme' }),
-          secondaryText: intl.formatMessage({ id: theme }),
+          secondaryText: intl.formatMessage({ id: themeSource.source }),
           primaryTogglesNestedList: true,
-          leftIcon: <FontIcon className='material-icons' >style</FontIcon>,
+          leftIcon: <StyleIcon />,
           nestedItems: themeItems
         },
         {
           primaryText: intl.formatMessage({ id: 'language' }),
           secondaryText: intl.formatMessage({ id: locale }),
           primaryTogglesNestedList: true,
-          leftIcon: <FontIcon className='material-icons' >language</FontIcon>,
+          leftIcon: <LanguageIcon />,
           nestedItems: localeItems
-        },
-        {
-          primaryText: intl.formatMessage({ id: 'responsive' }),
-          leftIcon: <FontIcon className='material-icons' >chrome_reader_mode</FontIcon>,
-          rightToggle: <Toggle
-            toggled={responsiveDrawer.responsive}
-            onToggle={
-              () => { setResponsive(!responsiveDrawer.responsive) }
-            }
-          />
         }
       ]
+    },
+    {
+      onClick: () => { switchNightMode(!themeSource.isNightModeOn) },
+      primaryText: intl.formatMessage({ id: themeSource.isNightModeOn ? 'day_mode' : 'night_mode' }),
+      leftIcon: themeSource.isNightModeOn ? <Brightness7 /> : <Brightness2 />
+    },
+    {
+      visible: isAppInstallable && !isAppInstalled,
+      onClick: () => { deferredPrompt.prompt() },
+      primaryText: intl.formatMessage({ id: 'install' }),
+      leftIcon: <VerticalAlignBottomIcon />
     }
   ]
 }

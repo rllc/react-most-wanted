@@ -15,4 +15,5 @@ const Routes = [
     <RestrictedRoute type='private' path="/sermons/edit/:uid" exact component={AsyncSermon} />,
 ]
 
-export default Routes
+
+export default routes;
