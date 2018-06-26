@@ -8,7 +8,7 @@ const AsyncPlayer = MyLoadable({ loader: () => import('./containers/Sermons/Serm
 const AsyncSermon = MyLoadable({ loader: () => import('./containers/Sermons/Sermon') });
 const AsyncSermons = MyLoadable({ loader: () => import('./containers/Sermons/Sermons') }, [AsyncSermon]);
 
-const Routes = [
+const routes = [
     <RestrictedRoute type='private' path="/" exact component={AsyncSermons} />,
     <RestrictedRoute type='private' path="/sermons" exact component={AsyncSermons} />,
     <RestrictedRoute type='private' path="/sermons/play/:uid" exact component={AsyncPlayer} />,

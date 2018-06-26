@@ -4,8 +4,8 @@ import { injectIntl } from 'react-intl';
 import { Activity } from 'rmw-shell'
 import { withRouter } from 'react-router-dom';
 import firebase from 'firebase';
-import FontIcon from 'material-ui/FontIcon';
-import FlatButton from 'material-ui/FlatButton';
+import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
 import { withFirebase } from 'firekit-provider'
 import AudioPlayer from'react-responsive-audio-player';
 import './audioplayer.css'
@@ -61,9 +61,9 @@ class SermonPlayer extends Component {
     return (
       <Activity
         iconElementRight={
-          match.params.uid ? <FlatButton
+          match.params.uid ? <Button
             style={{ marginTop: 4 }}
-            icon={<FontIcon className="material-icons" >edit</FontIcon>}
+            icon={<Icon className="material-icons" >edit</Icon>}
           /> : undefined
         }
         onBackClick={() => { history.goBack() }}
